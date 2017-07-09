@@ -2,11 +2,16 @@
 #include "pattern.h"
 #include "SwitchReader.h"
 
-const uint8_t numbVoices = 6;
+#define DEBUG
 
+const uint8_t numbVoices = 6;
 VoiceSettings_t voiceSettings[numbVoices];
 
 void setup() {
+  #ifdef DEBUG
+  Serial.begin(115200);
+  #endif
+  
   // TODO: disable millis timer?
   
   // TODO: set up voice settings (patterns and output Channel)
@@ -25,16 +30,20 @@ void loop() {
   SwitchReader::giveTime();
   // - give time to trigger manager
   
-  // proceed to next Step
-  currentStepIndex++;
-  if (currentStepIndex == numbStepsPerPattern) currentStepIndex = 0;
+  #ifdef DEBUG
+  Serial.print("Step "); Serial.println(currentStepIndex);
+  Serial.println("--------------------");
+  #endif
   
   // change Patterns
   for (uint8_t voiceIndex = 0; voiceIndex < numbVoices; voiceIndex++) {
     bool anyPatternChanged = false;
 
     if (SwitchReader::hasSwitchMoved(voiceIndex)) {
-      uint8_t newSwitchPosition;
+      uint8_t newSwitchPosition = SwitchReader::getPosition(voiceIndex);
+      #ifdef DEBUG
+      Serial.print("Switch "); Serial.print(voiceIndex); Serial.print(" changed to "); Serial.println(newSwitchPosition);
+      #endif
       voiceSettings[voiceIndex].setActivePatternByIndex(newSwitchPosition);
       voiceSettings[voiceIndex].setMute(false);      
       anyPatternChanged = true;
@@ -46,6 +55,9 @@ void loop() {
       // TODO: check difference between now and lastPatternChangeInTicks
       if (1) {
         // mute all voices
+        #ifdef DEBUG
+        Serial.println("Muting all voices)");
+        #endif
         for (uint8_t voiceIndex = 0; voiceIndex < numbVoices; voiceIndex++) {
           voiceSettings[voiceIndex].setMute(true);
         }
@@ -57,9 +69,19 @@ void loop() {
   for (uint8_t voiceIndex = 0; voiceIndex < numbVoices; voiceIndex++) {
     PatternStep_t thisStep = voiceSettings[voiceIndex].evaluateStep(currentStepIndex);
     if (thisStep != OffStep) {
+      #ifdef DEBUG
+      Serial.print(voiceIndex); Serial.print(" ");
+      #endif
       // TODO: fire trigger manager for the voice's channel with the step value
     }
    }
+   #ifdef DEBUG
+   Serial.println();
+   #endif
+   
+  // proceed to next Step
+  currentStepIndex++;
+  if (currentStepIndex == numbStepsPerPattern) currentStepIndex = 0;
   
   
   
