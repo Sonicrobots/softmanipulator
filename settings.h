@@ -35,6 +35,11 @@ uint8_t patternsPerVoice[numbVoices][VoiceSettings_t::numbPatternsPerVoice] = {
   { 0, 1, 2, 3, 4, 5 },
 };
 
+// turn-off timeout in minutes
+const uint8_t timeoutInMinutes = 20;
+
+// sequencer speed
+const uint8_t beatsPerMinute = 120;
 
 
 #endif

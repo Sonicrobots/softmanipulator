@@ -11,6 +11,8 @@ VoiceSettings_t voiceSettings[numbVoices];
 void setup() {
   #ifdef DEBUG
   Serial.begin(115200);
+  Serial.println("Booted!");
+  Serial.println();
   #endif
   
   SwitchReader::init();
@@ -47,18 +49,22 @@ void setup() {
   #endif 
 }
 
+
 uint8_t currentStepIndex = 0;
 
+const uint32_t ticksPerSecond = 1000ul;
+
 uint32_t lastStepInTicks = 0;
-const uint32_t stepLengthInTicks = 500;
+const uint32_t stepLengthInTicks = uint32_t(ticksPerSecond*60*4)/uint32_t(beatsPerMinute*numbStepsPerPattern);
 
 uint32_t lastPatternChangeInTicks = 0;
-const uint32_t timeoutInTicks = 1000ul*60*20;
+const uint32_t timeoutInTicks = ticksPerSecond*60*timeoutInMinutes;
 
 void loop() {
   
   #ifdef DEBUG
   Serial.print("Timeout: "); Serial.print(timeoutInTicks/1000/60); Serial.println(" Minutes");
+  Serial.print(beatsPerMinute); Serial.print(" BPM (Step length "); Serial.print(stepLengthInTicks); Serial.println(" ms)");
   Serial.println();
   #endif
 
