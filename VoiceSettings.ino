@@ -2,7 +2,7 @@
 #include <string.h>
 
 void VoiceSettings_t::selectPatterns(Pattern_t * newPatterns) {
-  memcpy(patterns, newPatterns, sizeof(Pattern_t)*numbPatternsPerVoice);
+  memcpy(patterns, newPatterns, sizeof(Pattern_t*)*numbPatternsPerVoice);
 }
 
 void VoiceSettings_t::setOutputChannel(uint8_t val) {
