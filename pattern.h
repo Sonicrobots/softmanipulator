@@ -13,7 +13,9 @@ typedef bool PatternStep_t;
 const PatternStep_t OffStep = false;
 
 // a bunch of single steps together is a pattern
-typedef PatternStep_t Pattern_t[numbStepsPerPattern];
+struct Pattern_t{
+  PatternStep_t steps[numbStepsPerPattern];
+};
   
 
 #endif

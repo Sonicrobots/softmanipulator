@@ -26,7 +26,7 @@ void setup() {
     
     // fill array according to selected pattern indices for this voice
     #ifdef DEBUG
-    Serial.print("Patterns for voice "); Serial.print(v); Serial.print(":");
+    Serial.print("Pattern-Indices for voice "); Serial.print(v); Serial.print(":");
     #endif
     for (uint8_t p=0; p<VoiceSettings_t::numbPatternsPerVoice; p++) {
       uint8_t thisPatternIndex = patternsPerVoice[v][p];
@@ -40,7 +40,7 @@ void setup() {
     #endif
     
     // pass temporary array to voice
-    voiceSettings[v].selectPatterns(thesePatterns[0]);
+    voiceSettings[v].selectPatterns(thesePatterns);
   }
   #ifdef DEBUG
   Serial.println();
@@ -57,8 +57,10 @@ const uint32_t timeoutInTicks = 1000ul*60*20;
 
 void loop() {
   
+  #ifdef DEBUG
   Serial.print("Timeout: "); Serial.print(timeoutInTicks/1000/60); Serial.println(" Minutes");
   Serial.println();
+  #endif
 
   while (1) {
     

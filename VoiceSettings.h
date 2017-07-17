@@ -15,7 +15,7 @@ class VoiceSettings_t {
 public:
   static const uint8_t numbPatternsPerVoice = 6;
 public:
-  void selectPatterns(Pattern_t* patterns);
+  void selectPatterns(Pattern_t* patterns[]);
   
   void setOutputChannel(uint8_t);
   uint8_t getOutputChannel();
