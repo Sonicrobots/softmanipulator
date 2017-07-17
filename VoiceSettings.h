@@ -12,7 +12,7 @@
  */
 
 class VoiceSettings_t {
-private:
+public:
   static const uint8_t numbPatternsPerVoice = 6;
 public:
   void selectPatterns(Pattern_t* patterns);
