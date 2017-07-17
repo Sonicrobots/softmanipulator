@@ -1,6 +1,7 @@
 #include "Triggers.h"
 #include "portManipulations.h"
 
+#define DEBUG
 
 const Triggers::PinSettings_t Triggers::pins[6] = {
   {0, &DDRB, &PORTB},
@@ -30,21 +31,35 @@ uint16_t Triggers::getTime() {
 }
 
 void Triggers::trigger(uint8_t index, uint16_t duration) {
-
-  *(pins[index].PORT_REG) |= (1<<pins[index].PinIndex);  
   
-  timing[index].offTime = getTime() + duration;
-  timing[index].isOn = true;  
+  if (index < numbChannels) {
+
+    // set pin on
+    *(pins[index].PORT_REG) |= (1<<pins[index].PinIndex);  
+    
+    // remember the time when it needs to be turned off again
+    timing[index].offTime = getTime() + duration;
+    timing[index].isOn = true;
+    
+  } else {
+    #ifdef DEBUG
+    Serial.print("Trigger index "); Serial.print(index); Serial.print(" out of range");
+    #endif
+  }
 }
 
 void Triggers::giveTime() {
   
+  // get time once and use it for all channels
   uint16_t now = getTime();
   
+  // check all channels
   for (uint8_t i=0; i<numbChannels; i++) {
     
-    // channel active?
+    // is it active?
     if (timing[i].isOn) {
+      
+      // does it need to be turned off?
       if (now >= timing[i].offTime) {
         
         // set pin off

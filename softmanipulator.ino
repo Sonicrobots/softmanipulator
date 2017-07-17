@@ -2,20 +2,11 @@
 #include "pattern.h"
 #include "SwitchReader.h"
 #include "Triggers.h"
+#include "settings.h"
 
 #define DEBUG
 
-const uint8_t numbVoices = 6;
 VoiceSettings_t voiceSettings[numbVoices];
-
-uint8_t patternsPerVoice[numbVoices][VoiceSettings_t::numbPatternsPerVoice] = {
-  { 0, 1, 2, 3, 4, 5},
-  { 0, 1, 2, 3, 4, 5},
-  { 0, 1, 2, 3, 4, 5},
-  { 0, 1, 2, 3, 4, 5},
-  { 0, 1, 2, 3, 4, 5},
-  { 0, 1, 2, 3, 4, 5},
-};
 
 void setup() {
   #ifdef DEBUG
@@ -35,7 +26,7 @@ void setup() {
     
     // fill array according to selected pattern indices for this voice
     #ifdef DEBUG
-    Serial.print("Patterns for voice "); Serial.print(v);
+    Serial.print("Patterns for voice "); Serial.print(v); Serial.print(":");
     #endif
     for (uint8_t p=0; p<VoiceSettings_t::numbPatternsPerVoice; p++) {
       uint8_t thisPatternIndex = patternsPerVoice[v][p];
@@ -50,8 +41,7 @@ void setup() {
     
     // pass temporary array to voice
     voiceSettings[v].selectPatterns(thesePatterns[0]);
-  }
-  
+  }  
 }
 
 uint8_t currentStepIndex = 0;

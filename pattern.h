@@ -14,22 +14,6 @@ const PatternStep_t OffStep = false;
 
 // a bunch of single steps together is a pattern
 typedef PatternStep_t Pattern_t[numbStepsPerPattern];
-
-// there are a few patterns defined
-static Pattern_t Patterns[numbPatterns] = {
-  {true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep},
-  {true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep},
-  {true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep},
-  {true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep},
-  {true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep},
-  {true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep},
-  {true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep},
-  {true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep},
-  {true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep},
-  {true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep},
-  {true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep},
-  {true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep},
-};
   
 
 #endif
