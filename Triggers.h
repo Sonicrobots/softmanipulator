@@ -13,7 +13,7 @@
 
 class Triggers {
 public:
-  static const uint16_t defaultDuration = 200;
+  static const uint16_t defaultDuration = 20;
   static const uint8_t numbChannels = 6;
 private:
   struct PinSettings_t {
