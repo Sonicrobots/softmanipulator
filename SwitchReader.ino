@@ -3,9 +3,9 @@
 
 uint8_t SwitchReader::states[numbSwitches];
 uint8_t SwitchReader::oldStates[numbSwitches];
-bool SwitchReader::changedFlags[numbSwitches];
+uint8_t SwitchReader::currentConvertingSwitchIndex;
 
-uint8_t SwitchReader::currentSwitchIndex;
+//#define DEBUG_SWITCHES
 
 
 void SwitchReader::init() {
@@ -16,22 +16,27 @@ void SwitchReader::init() {
   ADCSRA |= (1<<ADPS2) | (1<<ADPS1);	// prescaler
   
   // start conversion for index 0
-  currentSwitchIndex = 0;
+  currentConvertingSwitchIndex = 0;
   setMultiplexerFromCurrentSwitchID();
   startADConversion();
   
-  // convert all the switches until we reach 0 again
-  while (currentSwitchIndex != 0) {
+  // read all switches once
+  for (uint8_t s=0; s<numbSwitches; s++) {
     // wait for conversion to finish
     while (!(ADCSRA & (1<<ADIF)));
     // process result (also proceeds to next switch)
     processConversionResult();
   }
   
-  // clear changed flags
-  // they might have been set by comparing initial conversions
-  // with unitialized oldStates
-  memset(changedFlags, 0, sizeof(changedFlags));  
+  #ifdef DEBUG_SWITCHES
+  for (uint8_t s=0; s<numbSwitches; s++) {
+    Serial.print("Sw ");Serial.print(s);Serial.print(" initially ");Serial.println(states[s]);
+  }
+  #endif
+  
+  // set old states like new states to avoid triggering
+  // right after startup
+  memcpy(oldStates, states, sizeof(oldStates));
 }
 
 void SwitchReader::giveTime() {
@@ -44,25 +49,16 @@ void SwitchReader::giveTime() {
 
 void SwitchReader::processConversionResult() {
   
-  // shift back current state to old one
-  oldStates[currentSwitchIndex] = states[currentSwitchIndex];
-  
   // read result and quantize
-  states[currentSwitchIndex] = quantizeADValueToSwitchPosition(ADCH);
-
-  // set changed flagsfs
-  if (states[currentSwitchIndex] != oldStates[currentSwitchIndex]) {
-    changedFlags[currentSwitchIndex] = true;
-  }
+  states[currentConvertingSwitchIndex] = quantizeADValueToSwitchPosition(ADCH);
 
   // proceed to next switch
-  currentSwitchIndex++;
-  if (currentSwitchIndex >= numbSwitches) currentSwitchIndex = 0;  
+  currentConvertingSwitchIndex++;
+  if (currentConvertingSwitchIndex >= numbSwitches) currentConvertingSwitchIndex = 0;  
 
   // set up multiplexer and start new conversion
   setMultiplexerFromCurrentSwitchID();
   startADConversion();
-
 }
 
 void SwitchReader::startADConversion() {
@@ -70,7 +66,7 @@ void SwitchReader::startADConversion() {
 }
 void SwitchReader::setMultiplexerFromCurrentSwitchID() {
   ADMUX &= ~(0b00001111);
-  ADMUX |= currentSwitchIndex;
+  ADMUX |= currentConvertingSwitchIndex;
 }
 uint8_t SwitchReader::quantizeADValueToSwitchPosition(uint8_t val) {
   const uint8_t stepSize = (256 + numbPositions/2) / numbPositions;  
@@ -85,13 +81,20 @@ uint8_t SwitchReader::getPosition(uint8_t switchIndex) {
 }
 
 bool SwitchReader::hasSwitchMoved(uint8_t switchIndex) {
+
   if (switchIndex >= numbSwitches) return 0;
   
-  // return and clear flag
-  if (changedFlags[switchIndex]) {
-    changedFlags[switchIndex] = false;
-    return true;
-  } else{
-    return false;
-  }
+  // check if switch position changed since last comparison
+  if (states[switchIndex] != oldStates[switchIndex]) {
+    
+    #ifdef DEBUG_SWITCHES
+    Serial.print("Sw ");Serial.print(switchIndex);Serial.print(" changed from ");Serial.print(oldStates[switchIndex]);Serial.print(" to ");Serial.println(states[switchIndex]);
+    #endif
+    
+    // shift back current state to old one
+    oldStates[switchIndex] = states[switchIndex];
+    
+    return true;    
+  }  
+  return false;
 }
