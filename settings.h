@@ -6,7 +6,7 @@
 
 // total number of voices
 // not a tweakable constant
-const uint8_t numbVoices = 6;
+const uint8_t numbVoices = 4;
 
 // list of all patterns that can be used inside voices
 static Pattern_t Patterns[numbPatterns] = {
@@ -31,8 +31,8 @@ uint8_t patternsPerVoice[numbVoices][VoiceSettings_t::numbPatternsPerVoice] = {
   { 0, 1, 2, 3, 4, 5 },
   { 0, 1, 2, 3, 4, 5 },
   { 0, 1, 2, 3, 4, 5 },
-  { 0, 1, 2, 3, 4, 5 },
-  { 0, 1, 2, 3, 4, 5 },
+  //{ 0, 1, 2, 3, 4, 5 },
+  //{ 0, 1, 2, 3, 4, 5 },
 };
 
 // turn-off timeout in minutes
