@@ -115,7 +115,7 @@ void loop() {
         if (millis() > lastPatternChangeInTicks + timeoutInTicks) {
   
           #ifdef DEBUG
-          Serial.print("Timeout: ");Serial.print(timeoutInTicks); Serial.print(" from "); Serial.println(lastPatternChangeInTicks);
+          Serial.print("Timeout: ");Serial.print(timeoutInTicks); Serial.print("ms from last change at "); Serial.println(lastPatternChangeInTicks);
           Serial.println("Muting all voices");
           #endif
           
