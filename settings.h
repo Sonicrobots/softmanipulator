@@ -10,9 +10,9 @@ const uint8_t numbVoices = 4;
 
 // list of all patterns that can be used inside voices
 static Pattern_t Patterns[numbPatterns] = {
-  /*  0 */ {true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep},
+  /*  0 */ {OffStep, OffStep, OffStep, OffStep, OffStep, OffStep, OffStep, OffStep, OffStep, OffStep, OffStep, OffStep, OffStep, OffStep, OffStep, OffStep, OffStep, OffStep, OffStep, OffStep, OffStep, OffStep, OffStep, OffStep, OffStep, OffStep, OffStep, OffStep, OffStep, OffStep, OffStep, OffStep},
   /*  1 */ {true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep},
-  /*  2 */ {true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep},
+  /*  2 */ {true, OffStep, true,    OffStep, true, OffStep, true,    OffStep, true, OffStep, true,    OffStep, true, OffStep, true,    OffStep, true, OffStep, true,    OffStep, true, OffStep, true,    OffStep, true, OffStep, true,    OffStep, true, OffStep, true,    OffStep},
   /*  3 */ {true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep},
   /*  4 */ {true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep},
   /*  5 */ {true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep, true, OffStep, OffStep, OffStep},
@@ -28,8 +28,8 @@ static Pattern_t Patterns[numbPatterns] = {
 // select them by their indices
 uint8_t patternsPerVoice[numbVoices][VoiceSettings_t::numbPatternsPerVoice] = {
   { 0, 1, 2, 3, 4, 5 },
-  { 0, 1, 2, 3, 4, 5 },
-  { 0, 1, 2, 3, 4, 5 },
+  { 0, 0, 0, 2, 2, 2 },
+  { 2, 0, 2, 3, 4, 5 },
   { 0, 1, 2, 3, 4, 5 },
   //{ 0, 1, 2, 3, 4, 5 },
   //{ 0, 1, 2, 3, 4, 5 },
