@@ -23,6 +23,9 @@ void setup() {
     // set output channel like voice index
     voiceSettings[v].setOutputChannel(v);
     
+    // mute voice
+    voiceSettings[v].setMute(true);
+    
     // create temporary array of pattern pointers
     Pattern_t* thesePatterns[VoiceSettings_t::numbPatternsPerVoice];
     
