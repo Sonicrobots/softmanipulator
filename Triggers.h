@@ -10,6 +10,7 @@
  * 
  * - lets you pulse pins high with a defined length
  * - all pins defined by defines inside CPP file
+ * - optionally send MIDI on/off notes with length being mapped to velocity
  */
 
 class Triggers {

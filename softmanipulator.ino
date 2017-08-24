@@ -4,8 +4,6 @@
 #include "Triggers.h"
 #include "settings.h"
 
-#define DEBUG
-
 VoiceSettings_t voiceSettings[numbVoices];
 
 void setup() {

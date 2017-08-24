@@ -4,6 +4,14 @@
 #include "pattern.h"
 #include "VoiceSettings.h"
 
+// uncomment this to enable debug prints via Arduino's Serial at 115200
+// this cannot be used together with SEND_MIDI functionality
+#define DEBUG
+
+// send a MIDI note together with every actuator hit
+// this cannot be used together with DEBUG prints
+//#define SEND_MIDI
+
 // total number of voices
 // not a tweakable constant
 const uint8_t numbVoices = 4;
@@ -41,5 +49,19 @@ const uint8_t timeoutInMinutes = 20;
 // sequencer speed
 const uint8_t beatsPerMinute = 120;
 
+// midi notes that will be sent when a voice triggers
+const uint8_t midiNotesPerVoice[numbVoices] = {
+  48, 49, 50, 51
+};
 
+// midi channel to send on
+const uint8_t midiChannel = 1;
+
+
+
+#if defined(DEBUG) && defined(SEND_MIDI)
+#error("You can either use debug prints or send midi notes but no both")
 #endif
+
+
+#endif // INCLUDE GUARD

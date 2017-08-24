@@ -1,7 +1,8 @@
 #include "Triggers.h"
+#include "settings.h"
 #include "portManipulations.h"
+#include "MIDI.h"
 
-#define DEBUG
 
 const Triggers::PinSettings_t Triggers::pins[numbVoices] = {
   {2, &DDRB, &PORTB},
@@ -12,6 +13,10 @@ const Triggers::PinSettings_t Triggers::pins[numbVoices] = {
   //{3, &DDRB, &PORTB},
 };
 
+#ifdef SEND_MIDI
+MIDI_CREATE_DEFAULT_INSTANCE();
+#endif
+
 
 Triggers::Timing_t Triggers::timing[numbChannels];
 
@@ -21,6 +26,10 @@ void Triggers::init() {
   for (uint8_t i=0; i<numbChannels; i++) {
     *(pins[i].DDR_REG) |= (1<<pins[i].PinIndex);
   }  
+  
+  #ifdef SEND_MIDI
+  MIDI.begin();
+  #endif
 }
 
 uint16_t Triggers::getTime() {
@@ -40,6 +49,11 @@ void Triggers::trigger(uint8_t index, uint16_t duration) {
     // remember the time when it needs to be turned off again
     timing[index].offTime = getTime() + duration;
     timing[index].isOn = true;
+    
+    // send MIDI note on with duration as velocity
+    #ifdef SEND_MIDI
+    MIDI.sendNoteOn(midiNotesPerVoice[index], duration, midiChannel);
+    #endif
     
   } else {
     #ifdef DEBUG
@@ -65,6 +79,11 @@ void Triggers::giveTime() {
         // set pin off
         *(pins[i].PORT_REG) &= ~(1<<pins[i].PinIndex);
         timing[i].isOn = false;
+        
+        // send midi note off
+        #ifdef SEND_MIDI
+        MIDI.sendNoteOff(midiNotesPerVoice[i], 0, midiChannel);
+        #endif
       }
     }      
   }  
