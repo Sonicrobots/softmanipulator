@@ -2,6 +2,7 @@
 #define __GUARD_TRIGGERS
 
 #include <inttypes.h>
+#include "settings.h"
 
 /*
  * Simplified Trigger Manager
@@ -14,7 +15,7 @@
 class Triggers {
 public:
   static const uint16_t defaultDuration = 20;
-  static const uint8_t numbChannels = 6;
+  static const uint8_t numbChannels = numbVoices;
 private:
   struct PinSettings_t {
   	uint8_t   PinIndex;

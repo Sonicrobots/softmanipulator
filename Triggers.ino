@@ -3,13 +3,13 @@
 
 #define DEBUG
 
-const Triggers::PinSettings_t Triggers::pins[6] = {
+const Triggers::PinSettings_t Triggers::pins[numbVoices] = {
   {2, &DDRB, &PORTB},
   {1, &DDRB, &PORTB},
   {4, &DDRB, &PORTB},
   {0, &DDRB, &PORTB},
-  {6, &DDRD, &PORTD},
-  {3, &DDRB, &PORTB},
+  //{6, &DDRD, &PORTD},
+  //{3, &DDRB, &PORTB},
 };
 
 
